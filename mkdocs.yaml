@@ -61,6 +61,7 @@ nav:
       - WiPro-Kubernetes-Scheduling: "index.md"
   - Setup:
       - Virtuelles Environment: "setup/virtuelEnvionment.md"
+      - Kubernets: "setup/Kubernetes.md"
 
 # extra_css:
 #   - stylesheets/extra.css
