@@ -1,0 +1,100 @@
+# Template is from https://github.com/friedrich-de/AnimecardsWebsite
+# And from https://github.com/arbyste/jp-mining-note/
+
+site_name: Kubernetes Scheduler
+site_description: Wissenschaftliches Projekt für ein eignen Kubernetes Scheduler
+
+repo_url: https://github.com/PiEndetNie12/WiPro-Kubernetes-Scheduling
+repo_name: WiPro-Kubernetes-Scheduling
+edit_uri: edit/main/docs/
+site_url: https://github.com/PiEndetNie12/WiPro-Kubernetes-Scheduling/
+
+theme:
+  name: material
+  custom_dir: docs\overrides
+
+  font:
+    code: Roboto
+
+  palette:
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: black
+      toggle:
+        icon: material/lightbulb
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to dark mode
+
+  features:
+    # single page application
+    - navigation.instant
+
+    # table of contents automatically scrolls
+    - toc.follow
+
+    # hides the header when you scroll down long enough
+    - header.autohide
+
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+
+    - content.code.annotate
+
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - macros
+  - git-revision-date-localized:
+      type: date
+
+nav:
+  - Home:
+      - WiPro-Kubernetes-Scheduling: "index.md"
+  - Setup:
+      - Virtuelles Environment: "setup/virtuelEnvionment.md"
+
+# extra_css:
+#   - stylesheets/extra.css
+
+markdown_extensions:
+  - tables
+  - attr_list
+  - toc:
+      permalink: true
+      baselevel: 2
+      toc_depth: 3
+
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+  - admonition
+  - pymdownx.details
+
+  - md_in_html
+
+  - footnotes
+
+  - pymdownx.tasklist
+
+  # allows strikethrough
+  - pymdownx.tilde
+
+  # content tabs (left sidebar)
+  - pymdownx.tabbed:
+      alternate_style: true
+
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
