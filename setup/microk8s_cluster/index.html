@@ -557,6 +557,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#worker-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Worker Nodes
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -666,6 +675,15 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worker-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Worker Nodes
+    </span>
+  </a>
   
 </li>
       
@@ -872,6 +890,63 @@ In dem Tab kann über die drei Einstellungspunkte ein existierendes Cluster hinz
 Falls man selbst eine <code>.kubeconfig</code> File mit mehren Clustern hält, 
 kann diese ebenfalls angegeben werden.</p>
 <p><img alt="Hinzufügen eines Clusters zu der VSC Erweiterung" src="../../assets/images/add_cluster_to_vsc.png" /></p>
+<p>&lt;! Hier fehlt noch ein Bild für das fertige Setup&gt;</p>
+<h2 id="worker-nodes">Worker Nodes<a class="headerlink" href="#worker-nodes" title="Permanent link">&para;</a></h2>
+<p>Für unser Cluster haben wir zwei Worker Nodes vorgesehen, 
+die von unserem eigenen Scheduler verwaltet werden sollen. 
+Dafür werden zwei weitere Linux VMs erstellt und 
+mit dem Primären Knoten (<code>microk8s-vm</code>) verbunden. 
+In einem Windows Terminal oder über die Multipass GUI werden entsprechend zwei VMs erstellt. 
+<br>
+<code>$ multipass launch --name worker-node-1 -c 2 -m 2G -d 20G</code> <br>
+<code>$ multipass launch --name worker-node-2 -c 2 -m 2G -d 20G</code> <br></p>
+<p>Auf beiden Instanzen muss jeweils microk8s installiert werden:
+<br>
+<code>$ sudo snap install microk8s --classic</code> <br>
+<code>$ sudo microk8s status --wait-ready</code> <br></p>
+<p>Auf das Hochfahren warten...</p>
+<p><code>$ sudo microk8s enable dns</code> <br>
+<code>$ sudo microk8s enable registry</code> <br>
+<code>$ sudo microk8s enable istio</code> </p>
+<p>Jetzt können die Worker Nodes zu dem Primären Knoten hinzugefügt werden. 
+Es werden die Befehle aus der <a href="https://microk8s.io/docs/clustering">offiziellen Dokumentation</a> genutzt:
+<br>
+Auf der Instanz in denen die Nodes hinzugefügt werden sollen: 
+<br>
+<code>$ sudo microk8s add-node</code> <br>
+Das gibt den Output </p>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<p>From the node you wish to join to this cluster, run the following:
+microk8s join 172.30.165.61:25000/cec1671ddf02d8b81f11f983805155dd/e86943580390</p>
+<p>Use the '--worker' flag to join a node as a worker not running the control plane, eg:
+microk8s join 172.30.165.61:25000/cec1671ddf02d8b81f11f983805155dd/e86943580390 --worker</p>
+<p>If the node you are adding is not reachable through the default interface you can use one of the following:
+microk8s join 172.30.165.61:25000/cec1671ddf02d8b81f11f983805155dd/e86943580390</p>
+</div>
+<p>Entsprechend wird der mittlere Befehl mit dem <code>--worker</code> Flag genutzt. 
+Bei dem Hinzufügen der Nodes handelt es sich um Tokens, 
+die nach dem ersten erfolgreichem Hinzufügen ablaufen. </p>
+<p>Der Befehl wird kopiert und in einer der beiden Worker Node Instanzen ausgeführt:<br>
+<code>$ sudo microk8s join 172.30.165.61:25000/cec1671ddf02d8b81f11f983805155dd/e86943580390 --worker</code></p>
+<div class="admonition note">
+<p class="admonition-title">Warning: Hostpath storage is enabled</p>
+<p><mark class="critic"> WARNING: Hostpath storage is enabled and is not suitable for multi node clusters </mark></p>
+<p>Die Warnung besagt, 
+dass für ein multi node Cluster es nicht empfohlen, 
+einen Hostpath storage zu nutzen. 
+Dieser ist standardmäßig aktiviert. 
+Da wir nicht vor haben mit PersistentVolumes zu arbeiten, 
+kann diese Warnung gut ignoriert werden.</p>
+</div>
+<p>Sobald beide Worker Nodes hinzugefügt sind und laufen, 
+kann mit dem Befehl <code>$ sudo microk8s kubectl get no</code> alle Informationen der Nodes im CLuster angezeigt werden.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ubuntu@microk8s-vm:~$<span class="w"> </span>sudo<span class="w"> </span>microk8s<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>no
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>NAME<span class="w">            </span>STATUS<span class="w">   </span>ROLES<span class="w">    </span>AGE<span class="w">     </span>VERSION
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>microk8s-vm<span class="w">     </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">   </span>17h<span class="w">     </span>v1.30.4
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>worker-node-1<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">   </span>7m43s<span class="w">   </span>v1.30.4
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>worker-node-2<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">   </span>2m2s<span class="w">    </span>v1.30.4
+</code></pre></div>
 
 
 
