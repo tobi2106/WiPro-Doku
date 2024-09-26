@@ -212,3 +212,73 @@ kann diese ebenfalls angegeben werden.
 ![Hinzufügen eines Clusters zu der VSC Erweiterung](../assets/images/add_cluster_to_vsc.png)
 
 
+<! Hier fehlt noch ein Bild für das fertige Setup>
+
+# Worker Nodes
+
+Für unser Cluster haben wir zwei Worker Nodes vorgesehen, 
+die von unserem eigenen Scheduler verwaltet werden sollen. 
+Dafür werden zwei weitere Linux VMs erstellt und 
+mit dem Primären Knoten (`microk8s-vm`) verbunden. 
+In einem Windows Terminal oder über die Multipass GUI werden entsprechend zwei VMs erstellt. 
+<br>
+`$ multipass launch --name worker-node-1 -c 2 -m 2G -d 20G` <br>
+`$ multipass launch --name worker-node-2 -c 2 -m 2G -d 20G` <br>
+
+Auf beiden Instanzen muss jeweils microk8s installiert werden:
+<br>
+`$ sudo snap install microk8s --classic` <br>
+`$ sudo microk8s status --wait-ready` <br>
+
+Auf das Hochfahren warten...
+
+`$ sudo microk8s enable dns` <br>
+`$ sudo microk8s enable registry` <br>
+`$ sudo microk8s enable istio` 
+
+Jetzt können die Worker Nodes zu dem Primären Knoten hinzugefügt werden. 
+Es werden die Befehle aus der [offiziellen Dokumentation](https://microk8s.io/docs/clustering) genutzt:
+<br>
+Auf der Instanz in denen die Nodes hinzugefügt werden sollen: 
+<br>
+`$ sudo microk8s add-node` <br>
+Das gibt den Output 
+!!! quote
+
+    From the node you wish to join to this cluster, run the following:
+    microk8s join 172.30.165.61:25000/cec1671ddf02d8b81f11f983805155dd/e86943580390
+
+    Use the '--worker' flag to join a node as a worker not running the control plane, eg:
+    microk8s join 172.30.165.61:25000/cec1671ddf02d8b81f11f983805155dd/e86943580390 --worker
+
+    If the node you are adding is not reachable through the default interface you can use one of the following:
+    microk8s join 172.30.165.61:25000/cec1671ddf02d8b81f11f983805155dd/e86943580390
+
+Entsprechend wird der mittlere Befehl mit dem `--worker` Flag genutzt. 
+Bei dem Hinzufügen der Nodes handelt es sich um Tokens, 
+die nach dem ersten erfolgreichem Hinzufügen ablaufen. 
+
+Der Befehl wird kopiert und in einer der beiden Worker Node Instanzen ausgeführt:<br>
+`$ sudo microk8s join 172.30.165.61:25000/cec1671ddf02d8b81f11f983805155dd/e86943580390 --worker`
+
+!!! note "Warning: Hostpath storage is enabled"
+
+    {== WARNING: Hostpath storage is enabled and is not suitable for multi node clusters ==}
+
+    Die Warnung besagt, 
+    dass für ein multi node Cluster es nicht empfohlen, 
+    einen Hostpath storage zu nutzen. 
+    Dieser ist standardmäßig aktiviert. 
+    Da wir nicht vor haben mit PersistentVolumes zu arbeiten, 
+    kann diese Warnung gut ignoriert werden.
+
+Sobald beide Worker Nodes hinzugefügt sind und laufen, 
+kann mit dem Befehl `$ sudo microk8s kubectl get no` alle Informationen der Nodes im CLuster angezeigt werden.
+
+```shell
+ubuntu@microk8s-vm:~$ sudo microk8s kubectl get no
+NAME            STATUS   ROLES    AGE     VERSION
+microk8s-vm     Ready    <none>   17h     v1.30.4
+worker-node-1   Ready    <none>   7m43s   v1.30.4
+worker-node-2   Ready    <none>   2m2s    v1.30.4
+```
