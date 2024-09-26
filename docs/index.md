@@ -3,7 +3,8 @@ hide:
 - toc
 ---
 
-Funny text, der hier angezeigt wird.
+Hier einmal unser Projekt vorstellen und unsere Fragestellung näher bringen.  
 
-# Basic Setup
-1. [Virtuelles Environment](setup/virtuelEnvionment.md)
+# Setup
+1. [Virtuelles Environment it Multipass](setup/virtuelEnvionment.md)
+2. [Pushen von Docker-Images in ein Kubernetes Namespace](setup/dockerImageToNamespace.md)
