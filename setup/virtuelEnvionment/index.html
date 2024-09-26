@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Wissenschaftliches Projekt für ein eignen Kubernetes Scheduler">
+        <meta name="description" content="Wissenschaftliches Projekt für einen eigenen Kubernetes Scheduler">
       
       
       
@@ -15,6 +15,8 @@
       
         <link rel="prev" href="../..">
       
+      
+        <link rel="next" href="../IdeToVMConnection/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -48,6 +50,8 @@
       
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -74,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#title" class="md-skip">
+        <a href="#erstellen-einer-multipass-instanz" class="md-skip">
           Skip to content
         </a>
       
@@ -370,6 +374,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
       
@@ -455,11 +465,35 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#title" class="md-nav__link">
+  <a href="#erstellen-einer-multipass-instanz" class="md-nav__link">
     <span class="md-ellipsis">
-      title
+      Erstellen einer Multipass Instanz
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-der-ssh-verbindung" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup der SSH Verbindung
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup der SSH Verbindung">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssh-authentifizierung" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSH-Authentifizierung
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -467,6 +501,69 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IdeToVMConnection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSH Verbindung in VSC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../microk8s_cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MikroK8s Clusters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dockerImageToNamespace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker Images im Kubernetes Namespace
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -504,11 +601,35 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#title" class="md-nav__link">
+  <a href="#erstellen-einer-multipass-instanz" class="md-nav__link">
     <span class="md-ellipsis">
-      title
+      Erstellen einer Multipass Instanz
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-der-ssh-verbindung" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup der SSH Verbindung
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup der SSH Verbindung">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssh-authentifizierung" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSH-Authentifizierung
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -540,8 +661,145 @@
 
   <h1>Virtuelles Environment</h1>
 
-<h2 id="title">title<a class="headerlink" href="#title" title="Permanent link">&para;</a></h2>
-<p>funny text</p>
+<p>Das MicroK8s Cluster wird in einer VM von Multipass aufgesetzt.  </p>
+<h2 id="erstellen-einer-multipass-instanz">Erstellen einer Multipass Instanz<a class="headerlink" href="#erstellen-einer-multipass-instanz" title="Permanent link">&para;</a></h2>
+<p>Für das Aufsetzen eines MicroK8s Clusters wird auf der offiziellen <a href="https://microk8s.io/">MicroK8s Homepage</a> 
+<a href="https://multipass.run/">Multipass</a> empfohlen. 
+Für die Windowsinstallation wird direkt auf ein Installer verlinkt, 
+der ein existierenden MicroK8s Cluster aufsetzt. 
+Es wird eine VM mit 4 CPUs, 4G RAM und 40 GB an Speicher. 
+Für unsere Testzwecke sind die Ressourcen-Empfehlungen mehr als Ausreichend und 
+haben entsprechend jeweils nur die Hälfte zugewiesen. </p>
+<p><img alt="Erstellung einer VM für den MicroK8s auf Windows" src="../../assets/images/windows_Setup_microk8s_vm.png" /></p>
+<p>Nachdem die VM hochgefahren ist, 
+direkt über die Multipass GUI Shell mit der VM interagiert werden, 
+oder man kann direkt über ein Terminal mit der Instanz interagieren: 
+<br>
+<code>$ multipass start &lt;name&gt;</code> <br>
+<code>$ multipass shell &lt;name&gt;</code> <br>
+<code>$ multipass restart &lt;name&gt;</code> <br></p>
+<p>Für das erstellen einer neuen Instanz kann ebenfalls das Terminal verwendet werden: 
+<br>
+<code>$ multipass launch -n &lt;name&gt; -c &lt;cpus&gt; -m &lt;memory&gt; -d &lt;disk space&gt;</code></p>
+<p>Es kann noch ein <code>--image</code> Argument übergeben werden, um ein spezifisches Image auszuwählen, 
+als Standard wird das neuste Ubuntu LTS System genutzt. 
+Wir arbeiten mit der Ubuntu Version 24.04.01. </p>
+<p>Sobald die VM hochgefahren ist, 
+wird eine SSH Verbindung in der VM eingerichtet, 
+um sich auch außerhalb der VM mit dem Cluster zu verbinden. </p>
+<h2 id="setup-der-ssh-verbindung">Setup der SSH Verbindung<a class="headerlink" href="#setup-der-ssh-verbindung" title="Permanent link">&para;</a></h2>
+<p>Zuerst muss apt geupdated werden und darauf der openssh-client installiert werden.
+<br>
+<code>$ sudo apt update &amp;&amp; sudo apt upgrade</code> <br>
+<code>$ sudo apt install openssh-client</code> <br></p>
+<p>Danach wird überprüft ob die ssh-Verbindung steht: 
+<br>
+<code>$ sudo systemctl status ssh</code></p>
+<p><img alt="SSH Status" src="../../assets/images/ssh_status.png" /></p>
+<p>Somit läuft die SSH Verbindung auf der VM:
+<code>Active: active (running) since Wed 2024-09-25 14:32:27 UTC; 2min 19s ago</code>.</p>
+<p>In unserem fall müssen wir ssh in der Firewall noch aktiviren: 
+<br>
+<code>$ sudo ufw allow ssh</code> <br>
+<code>$ sudo systemctl enable ssh</code> <br></p>
+<p>Danach muss die IP Adresse der Linux-VM mit <code>ifconfig</code> ausgelesen werden:
+<br>
+<code>$ sudo apt install net-tools</code> <br>
+<code>$ ifconfig</code> <br></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>eth0:<span class="w"> </span><span class="nv">flags</span><span class="o">=</span><span class="m">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;<span class="w">  </span>mtu<span class="w"> </span><span class="m">1500</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">        </span>inet<span class="w"> </span><span class="m">172</span>.30.169.161<span class="w">  </span>netmask<span class="w"> </span><span class="m">255</span>.255.240.0<span class="w">  </span>broadcast<span class="w"> </span><span class="m">172</span>.30.175.255
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span>inet6<span class="w"> </span>fe80::5054:ff:fee3:86bf<span class="w">  </span>prefixlen<span class="w"> </span><span class="m">64</span><span class="w">  </span>scopeid<span class="w"> </span>0x20&lt;link&gt;
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">        </span>ether<span class="w"> </span><span class="m">52</span>:54:00:e3:86:bf<span class="w">  </span>txqueuelen<span class="w"> </span><span class="m">1000</span><span class="w">  </span><span class="o">(</span>Ethernet<span class="o">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span>RX<span class="w"> </span>packets<span class="w"> </span><span class="m">4606</span><span class="w">  </span>bytes<span class="w"> </span><span class="m">1326666</span><span class="w"> </span><span class="o">(</span><span class="m">1</span>.3<span class="w"> </span>MB<span class="o">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span>RX<span class="w"> </span>errors<span class="w"> </span><span class="m">0</span><span class="w">  </span>dropped<span class="w"> </span><span class="m">0</span><span class="w">  </span>overruns<span class="w"> </span><span class="m">0</span><span class="w">  </span>frame<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span>TX<span class="w"> </span>packets<span class="w"> </span><span class="m">4631</span><span class="w">  </span>bytes<span class="w"> </span><span class="m">564837</span><span class="w"> </span><span class="o">(</span><span class="m">564</span>.8<span class="w"> </span>KB<span class="o">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span>TX<span class="w"> </span>errors<span class="w"> </span><span class="m">0</span><span class="w">  </span>dropped<span class="w"> </span><span class="m">0</span><span class="w"> </span>overruns<span class="w"> </span><span class="m">0</span><span class="w">  </span>carrier<span class="w"> </span><span class="m">0</span><span class="w">  </span>collisions<span class="w"> </span><span class="m">0</span>
+</code></pre></div>
+<p>In unsrem Fall ist die IP: <code>172.30.169.161</code>. Somit kann sich über die IP und dem Username des Linux Rechners mit der VM verbunden werden: <code>ssh ubuntu@172.30.169.161</code>. </p>
+<h3 id="ssh-authentifizierung">SSH-Authentifizierung<a class="headerlink" href="#ssh-authentifizierung" title="Permanent link">&para;</a></h3>
+<p>Damit die SSH-Verbindung aufgebaut werden kann, 
+muss entweder ein Username mit Password auf der VM Instanz gesetzt werden, 
+oder man verbindet sich über die Public Key Authentifizierung. 
+Wir haben uns für das letzte entscheiden, 
+um einerseits mehr mit SSH zu arbeiten und dies zu üben, 
+als auch für eine sichere und schnellere Verbindung. 
+Sobald die Keys gesetzt sind, 
+kann die Verbindung ohne Login aufgebaut werden. 
+<br>
+<code>$ ssh-keygen</code></p>
+<p><img alt="SSH Key generation" src="../../assets/images/ssh_key.png" /></p>
+<p>Standardgemäß wird der SSH Key unter <code>/&lt;your_home/.ssh/id_rsa&gt;</code> gespeichert.<br />
+Außerdem kann ein Passphrase für die Keys angegeben werden. 
+Danach muss in der VM noch der öffentliche Schlüssel von den Rechnern hinzugefügt werden, 
+die sich mit der VM verbinden wollen. </p>
+<h4 id="openshh-installation">OpenSHH Installation<a class="headerlink" href="#openshh-installation" title="Permanent link">&para;</a></h4>
+<p>In meinem Fall möchte ich mich von einem Windows Rechner in die VM Verbinden. 
+Entsprechend habe ich mit OpenSSH ebenfalls Schlüssel generiert. 
+Das Vorgehen funktioniert sehr ähnlich und wird auf der Microsoft Seite <a href="https://learn.microsoft.com/de-de/windows-server/administration/openssh/openssh_install_firstuse">Erste Schritte mit OpenSSH für Windows</a> erklärt:
+<br>
+In PowerShell:<br>
+<code>$ Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'</code> <br>
+<code>$ Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0</code> <br>
+<code>$ Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0</code> <br></p>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Path<span class="w">          </span>:
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Online<span class="w">        </span>:<span class="w"> </span>True
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>RestartNeeded<span class="w"> </span>:<span class="w"> </span>False
+</code></pre></div>
+<code>$ Start-Service sshd</code> <br>
+<code>$ Set-Service -Name sshd -StartupType 'Automatic'</code> <br></p>
+<p>Zuletzt müssen noch die Ports in der WindowsFirewall freigegeben werden: <br>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">if</span> <span class="p">(!(</span><span class="nb">Get-NetFirewallRule</span> <span class="n">-Name</span> <span class="s2">&quot;OpenSSH-Server-In-TCP&quot;</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Enabled</span><span class="p">))</span> <span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="nb">Write-Output</span> <span class="s2">&quot;Firewall Rule &#39;OpenSSH-Server-In-TCP&#39; does not exist, creating it...&quot;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="nb">New-NetFirewallRule</span> <span class="n">-Name</span> <span class="s1">&#39;OpenSSH-Server-In-TCP&#39;</span> <span class="n">-DisplayName</span> <span class="s1">&#39;OpenSSH Server (sshd)&#39;</span> <span class="n">-Enabled</span> <span class="n">True</span> <span class="n">-Direction</span> <span class="n">Inbound</span> <span class="n">-Protocol</span> <span class="n">TCP</span> <span class="n">-Action</span> <span class="n">Allow</span> <span class="n">-LocalPort</span> <span class="n">22</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="nb">Write-Output</span> <span class="s2">&quot;Firewall rule &#39;OpenSSH-Server-In-TCP&#39; has been created and exists.&quot;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">}</span>
+</code></pre></div></p>
+<p>Jetzt kann in einem Windows-Terminal mit <code>$ ssh-keygen -t rsa</code> ebenfalls ein Schlüsselpaar generiert werden. </p>
+<h4 id="hinzufugen-eines-offentlichen-ssh-schlussel-in-linux">Hinzufügen eines Öffentlichen SSH Schlüssel in Linux<a class="headerlink" href="#hinzufugen-eines-offentlichen-ssh-schlussel-in-linux" title="Permanent link">&para;</a></h4>
+<p>Der öffentliche Schlüssel von dem Rechner, 
+der sich nun mit der Linux Instanz verbinden möchte, 
+muss kopiert werden und auf dem Linux Rechner hinterlegt werden. 
+Dafür muss das <code>.ssh</code> Verzeichnis in die File <code>authorized_keys</code> der öffentliche Schlüssel hinzugefügt werden und 
+die Rechte auf das File entsprechend gesetzt werden.
+<br>
+<code>$ echo "&lt;PUBLIC_KEY&gt; &gt;&gt; ~/.ssh/authorized_keys"</code> <br>
+<code>$ chmod 600 ~/.ssh/authorized_keys</code> <br></p>
+<p>Danach muss lediglich ssh neugestartet werden und es kann versucht werden, eine SSH-Verbindung aufzubauen:
+<br>
+<code>$ sudo systemctl restart ssh</code></p>
+<p>Auf meinem Windows Rechner:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">Tobby</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">λ</span> <span class="n">ssh</span> <span class="n">ubuntu</span><span class="nv">@172</span><span class="p">.</span><span class="n">30</span><span class="p">.</span><span class="n">169</span><span class="p">.</span><span class="n">161</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">The</span> <span class="n">authenticity</span> <span class="n">of</span> <span class="n">host</span> <span class="s1">&#39;172.30.169.161 (172.30.169.161)&#39;</span> <span class="n">can</span> <span class="n">t</span> <span class="n">be</span> <span class="n">established</span><span class="p">.</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">ECDSA</span> <span class="n">key</span> <span class="n">fingerprint</span> <span class="n">is</span> <span class="n">SHA256</span><span class="p">:</span><span class="n">5cuD09ZKcsANuY9RW5kp0gI</span><span class="p">+</span><span class="n">34fzbS</span><span class="p">/</span><span class="n">UYTxsNSx3</span><span class="p">+</span><span class="n">10</span><span class="p">.</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">Are</span> <span class="n">you</span> <span class="n">sure</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="k">continue</span> <span class="n">connecting</span> <span class="p">(</span><span class="n">yes</span><span class="p">/</span><span class="n">no</span><span class="p">/</span><span class="no">[fingerprint]</span><span class="p">)?</span> <span class="n">yes</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">Warning</span><span class="p">:</span> <span class="n">Permanently</span> <span class="n">added</span> <span class="s1">&#39;172.30.169.161&#39;</span> <span class="p">(</span><span class="n">ECDSA</span><span class="p">)</span> <span class="n">to</span> <span class="n">the</span> <span class="n">list</span> <span class="n">of</span> <span class="n">known</span> <span class="n">hosts</span><span class="p">.</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">Welcome</span> <span class="n">to</span> <span class="n">Ubuntu</span> <span class="n">24</span><span class="p">.</span><span class="n">04</span><span class="p">.</span><span class="n">1</span> <span class="n">LTS</span> <span class="p">(</span><span class="n">GNU</span><span class="p">/</span><span class="n">Linux</span> <span class="n">6</span><span class="p">.</span><span class="n">8</span><span class="p">.</span><span class="n">0</span><span class="p">-</span><span class="n">45-generic</span> <span class="n">x86_64</span><span class="p">)</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a> <span class="p">*</span> <span class="n">Documentation</span><span class="p">:</span>  <span class="n">https</span><span class="p">://</span><span class="n">help</span><span class="p">.</span><span class="n">ubuntu</span><span class="p">.</span><span class="n">com</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a> <span class="p">*</span> <span class="n">Management</span><span class="p">:</span>     <span class="n">https</span><span class="p">://</span><span class="n">landscape</span><span class="p">.</span><span class="n">canonical</span><span class="p">.</span><span class="n">com</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a> <span class="p">*</span> <span class="n">Support</span><span class="p">:</span>        <span class="n">https</span><span class="p">://</span><span class="n">ubuntu</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">pro</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a> <span class="n">System</span> <span class="n">information</span> <span class="n">as</span> <span class="n">of</span> <span class="n">Wed</span> <span class="n">Sep</span> <span class="n">25</span> <span class="n">15</span><span class="p">:</span><span class="n">42</span><span class="p">:</span><span class="n">36</span> <span class="n">UTC</span> <span class="n">2024</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>  <span class="n">System</span> <span class="n">load</span><span class="p">:</span>  <span class="n">0</span><span class="p">.</span><span class="n">08</span>               <span class="n">Processes</span><span class="p">:</span>             <span class="n">108</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>  <span class="n">Usage</span> <span class="n">of</span> <span class="p">/:</span>   <span class="n">10</span><span class="p">.</span><span class="n">2</span><span class="p">%</span> <span class="n">of</span> <span class="n">18</span><span class="p">.</span><span class="n">33GB</span>   <span class="n">Users</span> <span class="n">logged</span> <span class="k">in</span><span class="p">:</span>       <span class="n">1</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>  <span class="n">Memory</span> <span class="n">usage</span><span class="p">:</span> <span class="n">11</span><span class="p">%</span>                <span class="n">IPv4</span> <span class="n">address</span> <span class="k">for</span> <span class="n">eth0</span><span class="p">:</span> <span class="n">172</span><span class="p">.</span><span class="n">30</span><span class="p">.</span><span class="n">169</span><span class="p">.</span><span class="n">161</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>  <span class="n">Swap</span> <span class="n">usage</span><span class="p">:</span>   <span class="n">0</span><span class="p">%</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="n">Expanded</span> <span class="n">Security</span> <span class="n">Maintenance</span> <span class="k">for</span> <span class="n">Applications</span> <span class="n">is</span> <span class="n">not</span> <span class="n">enabled</span><span class="p">.</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="n">0</span> <span class="n">updates</span> <span class="n">can</span> <span class="n">be</span> <span class="n">applied</span> <span class="n">immediately</span><span class="p">.</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="n">Enable</span> <span class="n">ESM</span> <span class="n">Apps</span> <span class="n">to</span> <span class="n">receive</span> <span class="n">additional</span> <span class="n">future</span> <span class="n">security</span> <span class="n">updates</span><span class="p">.</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="n">See</span> <span class="n">https</span><span class="p">://</span><span class="n">ubuntu</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">esm</span> <span class="n">or</span> <span class="n">run</span><span class="p">:</span> <span class="n">sudo</span> <span class="n">pro</span> <span class="n">status</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="n">Last</span> <span class="n">login</span><span class="p">:</span> <span class="n">Wed</span> <span class="n">Sep</span> <span class="n">25</span> <span class="n">14</span><span class="p">:</span><span class="n">34</span><span class="p">:</span><span class="n">05</span> <span class="n">2024</span> <span class="n">from</span> <span class="n">172</span><span class="p">.</span><span class="n">30</span><span class="p">.</span><span class="n">160</span><span class="p">.</span><span class="n">1</span>
+</code></pre></div>
 
 
 
@@ -562,7 +820,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 22, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 26, 2024</span>
   </span>
 
     

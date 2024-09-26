@@ -1,0 +1,33 @@
+:root, [data-md-color-scheme=default] {
+    --md-code-fg-color: #18171d; /* Textfarbe für die Codeblöcken */
+    --md-code-bg-color: #ececef; /* Hintergrund Farbe für Codeblöcke*/
+}
+
+.md-typeset p {
+    /* text-align: justify; */
+}
+
+/* pre sind für die größeren Code-Blöcke: 
+```
+<code-block>
+```
+*/
+.md-typeset pre {
+    border: 1px solid #ddd; 
+    padding: 10px; 
+    font-size: 1em; 
+    border-radius: 5px; 
+}
+
+/* Darstellung für ein eingeschobenen Code-Block `<code-block> `*/
+.md-typeset code {
+
+    padding: 2px 4px; 
+    font-size: 1em; 
+    border-radius: 3px; 
+}
+
+.md-typeset code, .md-typeset kbd, .md-typeset pre {
+    direction: ltr;
+    font-variant-ligatures: none;
+}
