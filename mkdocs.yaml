@@ -55,6 +55,8 @@ nav:
       - SSH Verbindung in VSC: "setup/IdeToVMConnection.md"
       - MikroK8s Clusters: "setup/microk8s_cluster.md"
       - Docker Images im Kubernetes Namespace: "setup/dockerImageToNamespace.md"
+  - Recherche:
+      - Papers: "recherche/papers.md"
 
 extra_css:
   - stylesheets/extra.css
