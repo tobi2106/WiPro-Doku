@@ -57,6 +57,7 @@ nav:
       - Docker Images im Kubernetes Namespace: "setup/dockerImageToNamespace.md"
   - Recherche:
       - Papers: "recherche/papers.md"
+      - Expertengespräch: "recherche/expert_talk.md"
 
 extra_css:
   - stylesheets/extra.css

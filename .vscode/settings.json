@@ -1,6 +1,8 @@
 {
     "cSpell.words": [
+        "Affinitätsregeln",
         "cpus",
+        "Descheduler",
         "gehashten",
         "gehostet",
         "geupdated",
@@ -11,6 +13,8 @@
         "Multipass",
         "Neovim",
         "Standardgemäß",
-        "virtuelEnvionment"
+        "unterausgelastet",
+        "virtuelEnvionment",
+        "zustandsbehaftete"
     ]
 }
