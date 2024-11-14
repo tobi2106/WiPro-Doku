@@ -10,8 +10,10 @@
       
       
       
-        <link rel="canonical" href="https://github.com/PiEndetNie12/WiPro-Kubernetes-Scheduling/setup/Kubernetes/">
+        <link rel="canonical" href="https://github.com/PiEndetNie12/WiPro-Kubernetes-Scheduling/recherche/expert_talk/">
       
+      
+        <link rel="prev" href="../papers/">
       
       
       
@@ -20,7 +22,7 @@
     
     
       
-        <title>Kubernetes - Kubernetes Scheduler</title>
+        <title>Expertengespräch - Kubernetes Scheduler</title>
       
     
     
@@ -74,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#kubernetes" class="md-skip">
+        <a href="#szenario-mit-zustandslosen-workloads" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Kubernetes
+              Expertengespräch
             
           </span>
         </div>
@@ -233,7 +235,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../virtuelEnvionment/" class="md-tabs__link">
+        <a href="../../setup/virtuelEnvionment/" class="md-tabs__link">
           
   
     
@@ -249,11 +251,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../recherche/papers/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../papers/" class="md-tabs__link">
           
   
     
@@ -432,7 +436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../virtuelEnvionment/" class="md-nav__link">
+      <a href="../../setup/virtuelEnvionment/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -453,7 +457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../IdeToVMConnection/" class="md-nav__link">
+      <a href="../../setup/IdeToVMConnection/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -474,7 +478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../microk8s_cluster/" class="md-nav__link">
+      <a href="../../setup/microk8s_cluster/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -495,7 +499,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dockerImageToNamespace/" class="md-nav__link">
+      <a href="../../setup/dockerImageToNamespace/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -520,8 +524,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -532,19 +538,22 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -555,7 +564,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Recherche
@@ -569,7 +578,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../recherche/papers/" class="md-nav__link">
+      <a href="../papers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -587,10 +596,28 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../recherche/expert_talk/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Expertengespräch
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -599,6 +626,42 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#szenario-mit-zustandslosen-workloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Szenario mit zustandslosen Workloads
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#szenario-mit-cloud-native-anwendungen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Szenario mit Cloud-Native Anwendungen
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -636,9 +699,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#kubernetes" class="md-nav__link">
+  <a href="#szenario-mit-zustandslosen-workloads" class="md-nav__link">
     <span class="md-ellipsis">
-      Kubernetes
+      Szenario mit zustandslosen Workloads
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#szenario-mit-cloud-native-anwendungen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Szenario mit Cloud-Native Anwendungen
     </span>
   </a>
   
@@ -662,7 +734,7 @@
 
 
 <a
-        href="https://github.com/PiEndetNie12/WiPro-Kubernetes-Scheduling/edit/main/docs/setup/Kubernetes.md"
+        href="https://github.com/PiEndetNie12/WiPro-Kubernetes-Scheduling/edit/main/docs/recherche/expert_talk.md"
         title="View source of this page"
         class="md-content__button md-icon"
 >
@@ -670,9 +742,133 @@
 </a>
 
 
-  <h1>Kubernetes</h1>
+  <h1>Expertengespräch</h1>
 
-<h2 id="kubernetes">Kubernetes<a class="headerlink" href="#kubernetes" title="Permanent link">&para;</a></h2>
+<p>Im folgenden stehen die Fragen und Antworten, die wir im Expertengespräch gestellt haben. 
+Die Antworten wurden während des Gespräches mitgeschrieben. </p>
+<h2 id="szenario-mit-zustandslosen-workloads">Szenario mit zustandslosen Workloads<a class="headerlink" href="#szenario-mit-zustandslosen-workloads" title="Permanent link">&para;</a></h2>
+<p>Outline:<br>
+Wir haben ein Kubernetes System mit zustandslosen Workloads. 
+Die Workloads sind auf verschiedene Nodes verteilt. 
+Verteilt werden die Workloads über den standard Kubernetes Scheduler. 
+Ein Rescheduler soll bereits verteilte Workloads basierend auf den dynamischen Zustand auf den Cluster neuverteilen (nach einem Trigger).</p>
+<hr />
+<p>Dafür haben wir einen eigenen Scheduler geschrieben, 
+der verschiedene Strategien für das Scheduling der Workloads verwenden kann - wie:<br>
+- RoundRobin 
+- Priority Scheduling
+- First-Come, First-Served.
+Es existiert ein <code>MonitoringAgent</code> der alle Workloads beobachtet und deren Metrics analysiert.  </p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Wenn das Problem des Scheduling von Workloads allgemein betrachtet wird, muss das <code>Bin-Packing Problem</code> gelöst werden. 
+In Kontext zu Betriebssystemen müssen verschiedene Trade-offs betrachtet werden. 
+So muss darauf geachtet werden, 
+dass Prozesse fair und effizient auf verfügbare Ressourcen verteilt werden. 
+Dabei spielen Aspekte wie Antwortzeiten, 
+Durchsatz und Fairness eine zentrale Rolle. 
+<br>
+Inwiefern lässt sich das Konzept von Fairness aus traditionellen Scheduling-Ansätzen auf Kubernetes-Umgebungen übertragen, und 
+welche speziellen Herausforderungen entstehen dabei im Hinblick auf die dynamischen und 
+verteilten Workloads von Cloud-nativen Anwendungen?</p>
+</div>
+<p>Antwort:</p>
+<hr />
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Sind Constrains wie: CPU-Auslastung, Speicher-Auslastung und verfügbarer Speicherplatz ausreichend um ein Workload sinnvoll auf einem Node neu zu verteilen?</p>
+</div>
+<p>Antwort:</p>
+<hr />
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Im Kubernetes System gibt es den <code>Metrics-Server</code> der für das Autoscaling von Workloads zuständig ist. 
+Unter anderem bietet der Metrics-Server die Möglichkeit über die <code>Metrics API</code> auf Ressourcen von Pods und Nodes zuzugreifen. 
+Wäre es sinnvoll, 
+diese Metriken auch für das Rescheduling heranzuziehen, 
+oder sind dafür zusätzliche Metriken und Datenpunkte notwendig? 
+Inwiefern könnten die Informationen wie historische Daten, 
+Netzwerk-Latenzen oder spezifische Workload-Anforderungen dabei helfen das Scheduling zu verbessern?</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Kann Metrics-Server überhaupt weitere (für Rescheduling) sinnvolle Metriken liefern, die nicht rein über Metrics-API auch schon so bekommen werden können?</p>
+</div>
+<p>Antwort:</p>
+<hr />
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Ein Kubernetes Cluster wird unter Anderem oft dafür genutzt, um die Verfügbarkeit von Anwendungen sicherzustellen. 
+Aus Sicht des Cluster-Betreibers möchte man Einerseits eine hohe Ressourcenauslastung erreichen. 
+Andererseits möchte man sicherstellen, dass die Verfügbarkeit der Workloads nicht beeinträchtigt wird. 
+Worauf sollte man beim Rescheduling achten, um diesen Trade-off zwischen Ressourcenauslastung und Verfügbarkeit zu lösen?
+<br>
+Gibt es Strategien oder Metriken die dabei helfen können, um diesen Konflikt zu lösen?
+<br>
+Hat die Auslastung von Nodes irgendeinen Einfluss auf Antwortzeiten von Workloads darauf oder so?</p>
+</div>
+<p>Antwort:</p>
+<h2 id="szenario-mit-cloud-native-anwendungen">Szenario mit Cloud-Native Anwendungen<a class="headerlink" href="#szenario-mit-cloud-native-anwendungen" title="Permanent link">&para;</a></h2>
+<p>Outline:<br>
+Das Szenario wird aus Sicht eines Kubernetes Providers betrachtet. 
+<br>
+Kubernetes bietet die Möglichkeit einen sogenannten <code>Descheduler</code> zu nutzen. 
+Dieser ist kein Default von Kubernetes kann jedoch einfach mit über einen <code>helm</code> zum Cluster hinzugefügt werden.
+Der <code>Descheduler</code> wird eingesetzt, um die Verteilung von Pods in einem Cluster nachträglich zu optimieren, 
+wenn zum Beispiel die Bedingungen im Cluster sich geändert haben. 
+Da Kubernetes Cluster jedoch dynamisch sind und der Cluster-Zustand sich ändert (darunter Ressourcenbedarf, die Auslastung und die Verfügbarkeit von Nodes) kann es erforderlich sein auch bereits laufende Pods neu zu verteilen. 
+<br>
+<br>
+Beim <code>Descheduler</code> werden folgende Szenarien betrachtet:<br>
+- Ungleichmäßige Auslastung:<br>Wenn Nodes über- bzw. unterausgelastet sind
+- Veränderte Bedingungen:<br>Wenn Labels, Taints und Affinitätsregeln, die ursprünglich zur Platzierung geführt haben, nicht mehr zutreffen
+- Node-Ausfällen:<br>Wenn Nodes ausfallen und deren Pods neu verteilt wurden. 
+Der <code>Descheduler</code> übernimmt nicht selbst das erneute Scheduling, sondern überlässt dies dem Standard-Scheduler. </p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Der Descheduler wird verwendet, um Workloads im Kubernetes Cluster effizient auf verschiedene Nodes neu zu verteilen, wenn sich die Cluster-Bedingungen geändert haben. Dies kann notwendig sein, um Ressourcen effizienter zu nutzen, Lasten gleichmäßiger zu verteilen und die Verfügbarkeit zu verbessern. Im Betracht von Cloud-Nativen Anwendungen werden unter andrem jedoch zustandsbehaftete Workloads genutzt. 
+<br>
+Gibt es eine Möglichkeit zustandsbehaftete Workloads auf einem Cluster neu zu Verteilen ohne, 
+dass die Nutzer des Clusters benachteiligt werden?</p>
+</div>
+<p>Antwort:</p>
+<hr />
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Der Anwendungsbereich ist so klein, dass nur Provider es interessiert, 
+wie die Pods gescheduled werden. 
+Entsprechend können diese aber keine Vorhersage treffen, 
+ob die Nutzer cloud native Anwendugen auschließlich auf den Pods laufen lassen. 
+Anderes andres ausgedrückt, 
+ob die Nutzer Anwendungen laufen lassen, 
+welche sich für das Descheduling anbieten würden.
+<br>
+Was wären Use-Cases in denen Sie solch einen <code>Descheduler</code> in Betracht ziehen würden?</p>
+</div>
+<p>Antwort:</p>
+<hr />
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Obwohl der <code>Descheduler</code> von Kubernetes entwickelt und verwaltet wird, 
+gehört er nicht zur Standartinstallation und 
+wird nur als als optionale Erweiterung angeboten. 
+<br>
+Warum ist der Descheduler kein fester Bestandteil des Kubernetes-Standards? 
+<br>
+Welche technischen oder strategischen Überlegungen könnten dahinterstehen?“</p>
+</div>
+<p>Antwort: </p>
+<hr />
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Zum Abschluss haben wir die KI nach eine Frage zu Kubernetes Scheduling gebeten. 
+Passend zu der <code>Woche der KI</code> hat sich das LLM folgende Frage formuliert:
+<br>
+How can machine learning be integrated into Kubernetes scheduling for better decision-making?</p>
+</div>
+<p>Antwort: </p>
+<hr />
+<p>Vielen Dank für das Gespräch!</p>
 
 
 
@@ -693,7 +889,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 22, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 14, 2024</span>
   </span>
 
     
