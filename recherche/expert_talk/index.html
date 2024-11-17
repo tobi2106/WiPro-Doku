@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.36">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.06209087.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -658,6 +658,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#auswertung" class="md-nav__link">
+    <span class="md-ellipsis">
+      Auswertung
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Auswertung">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spezifizierung-der-fragestellung" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spezifizierung der Fragestellung
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -716,6 +740,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#auswertung" class="md-nav__link">
+    <span class="md-ellipsis">
+      Auswertung
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Auswertung">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spezifizierung-der-fragestellung" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spezifizierung der Fragestellung
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -746,6 +794,14 @@
 
 <p>Im folgenden stehen die Fragen und Antworten, die wir im Expertengespräch gestellt haben. 
 Die Antworten wurden während des Gespräches mitgeschrieben. </p>
+<p>Da im Gespräch Fragen zu dem Descheduler vorkommen, haben wir das Gespräch nach der ersten Outline mit der Frage begonnen, 
+ob unser Experte den Descheduler kennt - und die Antwort:<br></p>
+<ul>
+<li>Unser Experte hat schon vom Descheduler gehört, kennt sich aber mit keinen Details aus, so erklärt unser Experte: </li>
+<li>Über Tags werden an Pods RequiredDuringScheduling und RequiredDuringRuntime vergeben und ist dafür da, um Pods entsprechend herunterzufahren und 
+über den default Scheduler neu zu verteilen. </li>
+</ul>
+<p>Entsprechend konnten wir die Fragen, in denen der Descheduler vorkommt, in dem Gespräch stellen.</p>
 <h2 id="szenario-mit-zustandslosen-workloads">Szenario mit zustandslosen Workloads<a class="headerlink" href="#szenario-mit-zustandslosen-workloads" title="Permanent link">&para;</a></h2>
 <p>Outline:<br>
 Wir haben ein Kubernetes System mit zustandslosen Workloads. 
@@ -754,11 +810,13 @@ Verteilt werden die Workloads über den standard Kubernetes Scheduler.
 Ein Rescheduler soll bereits verteilte Workloads basierend auf den dynamischen Zustand auf den Cluster neuverteilen (nach einem Trigger).</p>
 <hr />
 <p>Dafür haben wir einen eigenen Scheduler geschrieben, 
-der verschiedene Strategien für das Scheduling der Workloads verwenden kann - wie:<br>
-- RoundRobin 
-- Priority Scheduling
-- First-Come, First-Served.
-Es existiert ein <code>MonitoringAgent</code> der alle Workloads beobachtet und deren Metrics analysiert.  </p>
+der verschiedene Strategien für das Scheduling der Workloads verwenden kann - wie:<br></p>
+<ul>
+<li>RoundRobin </li>
+<li>Priority Scheduling</li>
+<li>First-Come, First-Served.</li>
+</ul>
+<p>Es existiert ein <code>MonitoringAgent</code> der alle Workloads beobachtet und deren Metrics analysiert.  </p>
 <div class="admonition question">
 <p class="admonition-title">Question</p>
 <p>Wenn das Problem des Scheduling von Workloads allgemein betrachtet wird, muss das <code>Bin-Packing Problem</code> gelöst werden. 
@@ -773,12 +831,28 @@ welche speziellen Herausforderungen entstehen dabei im Hinblick auf die dynamisc
 verteilten Workloads von Cloud-nativen Anwendungen?</p>
 </div>
 <p>Antwort:</p>
+<ul>
+<li>Ganz ehrlich: Keine Ahnung, das legt der Scheduler fest und kann so nicht gesagt werden. Workload der auf Bin-Packing läuft, wahrscheinlicher für Systemausfälle (viele Pods auf Node, Stecker ziehen).  </li>
+<li>Wenn das Problem weit genug abstrahiert wird, dann kann das Problem durchaus auf das Betriebssystem Scheduler zurückgeführt werden. </li>
+</ul>
 <hr />
 <div class="admonition question">
 <p class="admonition-title">Question</p>
 <p>Sind Constrains wie: CPU-Auslastung, Speicher-Auslastung und verfügbarer Speicherplatz ausreichend um ein Workload sinnvoll auf einem Node neu zu verteilen?</p>
 </div>
 <p>Antwort:</p>
+<ul>
+<li>Kommt drauf an (auf die Strategie). CPU: Bei Webservices Häufig null aussagekraft weil das Meiste warten durch IO Operation entsteht <ul>
+<li>CPU Metrik schlägt viel zu spät an - daher oft nicht sinnvoll</li>
+</ul>
+</li>
+<li>Batch-Job Neuronales Netz: CPU-lastig / GPU-lastig (lange hohe Auslastung). Hier CPU sinnvoll. </li>
+<li>Kommt drauf an, was wir machen.<ul>
+<li>Erwähnung von Google-Paper: Workload-Kategorien empirisch in Google-Rechenzentren. Cloud-Prog Scheduling zu finden.</li>
+</ul>
+</li>
+<li>Kubernetes default Scheduler häufig für Webservices</li>
+</ul>
 <hr />
 <div class="admonition question">
 <p class="admonition-title">Question</p>
@@ -795,6 +869,16 @@ Netzwerk-Latenzen oder spezifische Workload-Anforderungen dabei helfen das Sched
 <p>Kann Metrics-Server überhaupt weitere (für Rescheduling) sinnvolle Metriken liefern, die nicht rein über Metrics-API auch schon so bekommen werden können?</p>
 </div>
 <p>Antwort:</p>
+<ul>
+<li>Metrics-Server liefert sicherlich Node-Metriken. </li>
+<li>Experte war nicht exakt vertraut mit dem <code>Metrics-Server</code> entsprecht war die Antwort unsicher: „Mal anschauen. Vllt. gibt der <code>Metrics-Server</code> noch Aufschluss darüber [mehr Metriken].“ </li>
+<li><strong>Ist-Zustand</strong> des Systems ist ausschlaggebend für das Scheduling. </li>
+<li>Zukunft vorhersage schwierig (bei periodischen Jobs evtl. einfacher).<ul>
+<li>Unsicherheit, ob das Neuzuteilen des Workloads sinnvoll ist, auch für die nähere Zukunft (Zu dem Zeitpunkt in dem das Neuzuteilen final getroffen wurden ist)</li>
+<li>Zeitpunkt des finale Entscheiden für das Rescheduling ist nicht Eindeutig </li>
+</ul>
+</li>
+</ul>
 <hr />
 <div class="admonition question">
 <p class="admonition-title">Question</p>
@@ -807,7 +891,32 @@ Gibt es Strategien oder Metriken die dabei helfen können, um diesen Konflikt zu
 <br>
 Hat die Auslastung von Nodes irgendeinen Einfluss auf Antwortzeiten von Workloads darauf oder so?</p>
 </div>
-<p>Antwort:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Die Antwort auf die Zweite fragen wurde bereits während den vorherigen Fragen beantwortet. 
+Entsprechend haben wir diese im Gespräch übersprungen.</p>
+</div>
+<p>Antwort zu der ersten Teilfrage:</p>
+<ul>
+<li>„Das ist spannend!“ </li>
+<li>Letztendlich definieren wir eine Zielfunktion, den wir nach Anwendungsfall maximieren wollen. </li>
+<li>Scheduler auf 2 Ebenen: <ul>
+<li>Pods im Cluster und Cluster selbst zu skalieren. </li>
+<li>Cluster Skalierung läuft deutlich langsamer als Workload-Skalierung in Cluster - „Cluster locker mal 10 Minuten, Workloads im Sekundenbereich“.</li>
+</ul>
+</li>
+</ul>
+<p>Antwort zu der dritten Teilfrage:</p>
+<ul>
+<li>Nodes die wirklich ausgelastet sind (ressourcenmäßig) sind langsamer (Betriebssysteme RAM, Kontextwechsel kostet Zeit). </li>
+<li>Request für Scheduler entscheidend.</li>
+<li>Limits sind wichtig für Auslastung der Nodes, um Monopolisierung zu vermeiden (Fairness).</li>
+<li>Gehört zu Cloudprogramming: <ul>
+<li><code>Mesos</code> hat Fairness-Definition drin im Skript. (Experte hat auf eine Quelle über <code>Mesos</code> verwiesen, in denen wir nachlesen sollen) </li>
+<li>Ressourcen werden beliebig elastisch an Projekte verteilt.</li>
+</ul>
+</li>
+</ul>
 <h2 id="szenario-mit-cloud-native-anwendungen">Szenario mit Cloud-Native Anwendungen<a class="headerlink" href="#szenario-mit-cloud-native-anwendungen" title="Permanent link">&para;</a></h2>
 <p>Outline:<br>
 Das Szenario wird aus Sicht eines Kubernetes Providers betrachtet. 
@@ -819,11 +928,13 @@ wenn zum Beispiel die Bedingungen im Cluster sich geändert haben.
 Da Kubernetes Cluster jedoch dynamisch sind und der Cluster-Zustand sich ändert (darunter Ressourcenbedarf, die Auslastung und die Verfügbarkeit von Nodes) kann es erforderlich sein auch bereits laufende Pods neu zu verteilen. 
 <br>
 <br>
-Beim <code>Descheduler</code> werden folgende Szenarien betrachtet:<br>
-- Ungleichmäßige Auslastung:<br>Wenn Nodes über- bzw. unterausgelastet sind
-- Veränderte Bedingungen:<br>Wenn Labels, Taints und Affinitätsregeln, die ursprünglich zur Platzierung geführt haben, nicht mehr zutreffen
-- Node-Ausfällen:<br>Wenn Nodes ausfallen und deren Pods neu verteilt wurden. 
-Der <code>Descheduler</code> übernimmt nicht selbst das erneute Scheduling, sondern überlässt dies dem Standard-Scheduler. </p>
+Beim <code>Descheduler</code> werden folgende Szenarien betrachtet:</p>
+<ul>
+<li><strong>Ungleichmäßige Auslastung</strong>:<br>Wenn Nodes über- bzw. unterausgelastet sind<br></li>
+<li><strong>Veränderte Bedingungen</strong>:<br>Wenn Labels, Taints und Affinitätsregeln, die ursprünglich zur Platzierung geführt haben, nicht mehr zutreffen<br></li>
+<li><strong>Node-Ausfällen</strong>:<br>Wenn Nodes ausfallen und deren Pods neu verteilt wurden.<br>
+Der <code>Descheduler</code> übernimmt nicht selbst das erneute Scheduling, sondern überlässt dies dem Standard-Scheduler. </li>
+</ul>
 <div class="admonition question">
 <p class="admonition-title">Question</p>
 <p>Der Descheduler wird verwendet, um Workloads im Kubernetes Cluster effizient auf verschiedene Nodes neu zu verteilen, wenn sich die Cluster-Bedingungen geändert haben. Dies kann notwendig sein, um Ressourcen effizienter zu nutzen, Lasten gleichmäßiger zu verteilen und die Verfügbarkeit zu verbessern. Im Betracht von Cloud-Nativen Anwendungen werden unter andrem jedoch zustandsbehaftete Workloads genutzt. 
@@ -832,20 +943,33 @@ Gibt es eine Möglichkeit zustandsbehaftete Workloads auf einem Cluster neu zu V
 dass die Nutzer des Clusters benachteiligt werden?</p>
 </div>
 <p>Antwort:</p>
+<ul>
+<li>Ja; NoSQL Datenbank Sync (Leader-Election- Algorithmen (N+1/2 (Raft)))</li>
+</ul>
 <hr />
 <div class="admonition question">
 <p class="admonition-title">Question</p>
 <p>Der Anwendungsbereich ist so klein, dass nur Provider es interessiert, 
 wie die Pods gescheduled werden. 
 Entsprechend können diese aber keine Vorhersage treffen, 
-ob die Nutzer cloud native Anwendugen auschließlich auf den Pods laufen lassen. 
+ob die Nutzer cloud native Anwendungen ausschließlich auf den Pods laufen lassen. 
 Anderes andres ausgedrückt, 
 ob die Nutzer Anwendungen laufen lassen, 
 welche sich für das Descheduling anbieten würden.
 <br>
 Was wären Use-Cases in denen Sie solch einen <code>Descheduler</code> in Betracht ziehen würden?</p>
 </div>
-<p>Antwort:</p>
+<p><strong>Antwort:</strong></p>
+<ul>
+<li>Problemlos bei Stateless, kann Problem bei Stateful werden. </li>
+<li>Rolling-Update von Kubernetes, kann man auch gut verwenden für unseren Rescheduler.<ul>
+<li>Strategie, dass bei Versionsänderungen nicht alle Pods auf einmal geupdated werden und damit Neugestartet werden, um möglichen Datenverlust entgegen zu wirken</li>
+</ul>
+</li>
+<li>Für jede Anwendung Schmerzgrenze, <strong>wie viele Ressourcen darf Kubernetes mir abziehen? Was ist meine Schmerzgrenze?</strong>
+Stateful sehr schwierig, aufwändig. untere Grenze ist immer einfach. </li>
+<li>Obere Grenze ist schwieriger zu definieren.</li>
+</ul>
 <hr />
 <div class="admonition question">
 <p class="admonition-title">Question</p>
@@ -858,6 +982,18 @@ Warum ist der Descheduler kein fester Bestandteil des Kubernetes-Standards?
 Welche technischen oder strategischen Überlegungen könnten dahinterstehen?“</p>
 </div>
 <p>Antwort: </p>
+<ul>
+<li>Bringt Unsicherheiten und Schwierigkeiten ins System. </li>
+<li>Bestreben einen stabilen Zustand zu erreichen, Rescheduling stört.</li>
+<li>Lohnt sich häufig nicht</li>
+<li>Laufende Workloads zu unterbrechen, kann sehr schlecht sein. <ul>
+<li>Der Provider weiß nicht genau, was auf den Workloads läuft - hängt vom Design / Anwendung ab. </li>
+</ul>
+</li>
+<li>Bei Stateless Anwendungen haben wir häufig weniger Probleme als beim Stateful-Sets. </li>
+<li>Wird Datenbank verwendet, die kein Raft verwendet - zum Beispiel Paxos. (Unsicherheit was für ein Konsens Algorithmen verwendet wird) </li>
+<li>Irgendeine untere Grenze Definiert, unter der es nicht mehr funktioniert?</li>
+</ul>
 <hr />
 <div class="admonition question">
 <p class="admonition-title">Question</p>
@@ -867,8 +1003,45 @@ Passend zu der <code>Woche der KI</code> hat sich das LLM folgende Frage formuli
 How can machine learning be integrated into Kubernetes scheduling for better decision-making?</p>
 </div>
 <p>Antwort: </p>
+<ul>
+<li>Zeitreihenprognosen die man nutzen kann. Workloads Periodizität unterworfen (Montags morgen Büro = Peak). </li>
+<li>Kann man aus Historie ableiten, wann er welche Peaks haben wird? </li>
+<li>Klassisches Machine Learning Problem. <ul>
+<li>Automatisierte Cluster-Skalierung - ab Feierabend bspw. kann wieder runterskaliert werden.</li>
+</ul>
+</li>
+<li>Machine Learning kann dieses Problem anpassbarer machen.</li>
+</ul>
 <hr />
 <p>Vielen Dank für das Gespräch!</p>
+<h2 id="auswertung">Auswertung<a class="headerlink" href="#auswertung" title="Permanent link">&para;</a></h2>
+<p>Durch das Gespräch haben wir Einsicht darüber bekommen, 
+dass die Metriken sehr spezifisch für das Problem sind. 
+In unserer Arbeit beschränken wir uns nur auf zustandslosen Workloads, 
+doch das Problem lässt sich auch auf zustandsbehaftete Workloads übertragen. 
+Dies würde aber einen riesigen Aufwand bedeuten. 
+<br>
+<br>
+Außerdem wurden wir auf ein Perspektivenwechsel aufmerksam gemacht, 
+indem das Scheduling auf zwei Ebenen betrachtet werden kann - Pods im Cluster können skaliert werden, als auch das Cluster selbst. 
+Entsprechend haben wir unsere Fragestellung spezifischer formuliert. 
+<br>
+<br>
+Das Scheduling Problem kann durchaus mit genügend Abstraktion als klassisches Scheduling Problem aus den Betriebssystemen betrachtet werden. 
+So muss ebenfalls die verschiedenen Trade-offs betrachtet werden und ein Fokus gelegt werden, 
+was der Scheduler erreichen soll. So kann zwischen zum Beispiel der Fairness oder Verfügbarkeit spezifiziert werden, je nach Anforderung. </p>
+<h3 id="spezifizierung-der-fragestellung">Spezifizierung der Fragestellung<a class="headerlink" href="#spezifizierung-der-fragestellung" title="Permanent link">&para;</a></h3>
+<p>Durch das Expertengespräch haben wir unsere Fragestellung unter den Folgenden Faktoren stark eingrenzen können:</p>
+<ul>
+<li>Problemunterscheidung</li>
+<li>Fokus auf Stateless</li>
+<li>Genaue Definition der verwendeten Workloads im System <ul>
+<li>Ausschlaggebend für die zu sammelnden Metriken </li>
+<li>Nutzung einer Zielfunktion für das Gewünschte Ziel vom Scheduler</li>
+</ul>
+</li>
+<li>Notwendigkeits-Analyse</li>
+</ul>
 
 
 
@@ -889,7 +1062,7 @@ How can machine learning be integrated into Kubernetes scheduling for better dec
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 14, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 17, 2024</span>
   </span>
 
     
@@ -939,7 +1112,7 @@ How can machine learning be integrated into Kubernetes scheduling for better dec
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
       
     
   </body>
