@@ -1,6 +1,10 @@
 Im folgenden stehen die Fragen und Antworten, die wir im Expertengespräch gestellt haben. 
 Die Antworten wurden während des Gespräches mitgeschrieben. 
 
+
+Descheduler Stand Kratzke:
+- Tags ans Pods RequiredDuringScheduling und RequiredDuringRuntime
+
 # Szenario mit zustandslosen Workloads
 
 Outline:<br>
@@ -31,6 +35,8 @@ Es existiert ein `MonitoringAgent` der alle Workloads beobachtet und deren Metri
 
 
 Antwort:
+- Ganz ehrlich: Keine Ahnung, das legt der Scheduler fest und kann so nicht gesagt werden. Workload der auf binpacking läuft, wahrscheinlicher für Systemausfälle (viele Pods auf Node, Stecker ziehen).  
+
 
 ---
 
@@ -38,6 +44,12 @@ Antwort:
     Sind Constrains wie: CPU-Auslastung, Speicher-Auslastung und verfügbarer Speicherplatz ausreichend um ein Workload sinnvoll auf einem Node neu zu verteilen?
 
 Antwort:
+- Kommt drauf an (auf die Strategie). CPU: Häufig null aussagekraft weil
+Webservices häufig wenig Auslastung weil wegen warten auf IO --> CPU Metrik schlägt viel zu spät an. Nicht sinnvoll
+Batch-Job Neuronales Netz: CPU-lastig/GPU-lastig (lange so). CPU sinnvoll. 
+Kommt drauf an, was wir machen.
+Google-Paper Workload-Kategorien empirisch in Google-Rechenzentren. Cloud-Prog Scheduling zu finden.
+Kubernetes default Scheduler häufig ür Webservices
 
 ---
 
@@ -55,6 +67,7 @@ Antwort:
 
 
 Antwort:
+Metrics-Server liefert sicherlich Node-Metriken. Mal anschauen. Vllt gibt der noch Aufschluss darüber. Ist-Zustand des Systems. Zukunft vorhersage schwierig (bei periodischen Jobs evtl. einfacher).
 
 ---
 
@@ -69,6 +82,16 @@ Antwort:
     Hat die Auslastung von Nodes irgendeinen Einfluss auf Antwortzeiten von Workloads darauf oder so?
 
 Antwort:
+Das ist spannend! Letztendlich definieren wir eine Zielfunktion, die wir maximieren wollen. 
+
+Schedulen auf 2 Ebenen Pods im Cluster und Cluster himself zu skalieren. Clusterskalierung läuft deutlich langsamer als Workload-Skalierung in Cluster (Cluster locker mal 10 Minuten, Workloads im Sekundenbereich)
+
+
+**Für Zusatzfrage**
+
+Nodes die wirklich ausgelastet sind (Ressourcenmäßig) sind langsamer (Betriebssysteme RAM, Kontextwechsel kostet Zeit). Request für Scheduler entscheidend.
+Limits sind wichtig für Auslastung der Nodes, um Monopolisierung zu vermeiden (Fairness).
+Cloudprogramming: Mesos hat Fairness-Definition drin im Skript. Anschauen. Priorisierung. Ressourcen werden beliebig elastisch an Projekte verteilt.
 
 
 # Szenario mit Cloud-Native Anwendungen
@@ -97,6 +120,7 @@ Der `Descheduler` übernimmt nicht selbst das erneute Scheduling, sondern überl
     dass die Nutzer des Clusters benachteiligt werden?
 
 Antwort:
+NoSQL Datenbank Sync (Leader-Election- Algorithmen (N+1/2 (Raft)))
 
 ---
 
@@ -111,7 +135,11 @@ Antwort:
     <br>
     Was wären Use-Cases in denen Sie solch einen `Descheduler` in Betracht ziehen würden?
 
-Antwort:
+**Antwort:**
+Problemlos bei Stateless, kann Problem bei Stateful werden. Rolling-Update von Kubernetes, kann man auch gut verwenden für unseren Rescheduler.
+
+Für jede Anwendung Schmerzgrenze, **wieviele Ressourcen darf Kubernetes mir abziehen? Was meine Schmerzgrenze?**
+Stateful sehr schwierig, aufwändig. untere Grenze ist immer einfach. Obere Grenze ist schwieriger zu definieren.
 
 ---
 
@@ -126,6 +154,12 @@ Antwort:
 
 Antwort: 
 
+Bringt Unsicherheiten und Schwierigkeiten ins System. bestreben einen stabilen Zustand zu erreichen, Rescheduling stört.
+Lohnt sich häufig
+
+Workloads unterbrechen können nicht alle (schlecht) desginten ab. Bei Stateless Anwendungen haben wir häufig nicht Probleme wie bei Stateful-Sets. Wird Datenbank verwendet, die kein Raft verwendet? Paxos? Irgendeine untere Grenze Definiert, unter der es nicht mehr funktioniert?
+
+
 ---
 
 !!! question
@@ -135,7 +169,10 @@ Antwort:
     How can machine learning be integrated into Kubernetes scheduling for better decision-making?
 
 Antwort: 
-
+Zeitreihenprognosen die man nutzen kann. Workloads Periodizitäten unterworfen (Montags morgen Büro = Peak). Kann man
+aus Historie ableiten, wann er welche Peaks haben wird? Klassisches Machine Learning Problem. Automatisierte Cluster-Skalierung --> Ab Feierabend bspw. kann wieder runterskaliert werden.
+Machine Learning kann man das anpassbarer machen.
+ 
 ---
 
 Vielen Dank für das Gespräch!
